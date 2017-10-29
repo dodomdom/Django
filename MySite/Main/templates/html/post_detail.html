@@ -1,0 +1,39 @@
+{% extends "html/base.html" %}
+{% load crispy_forms_tags %}
+{% block head_title %}{{ instance.title }} | {{ block.super }}{% endblock head_title %}
+
+{% block content %}
+
+	<div>{{ instance.id }}</div>
+	<div>{{ instance.title }}</div>
+	{% if instance.image %}
+		<img src='{{ instance.image.url }}' class='img-responsive'/>
+	{% endif %}
+	<div>{{ instance.content }}</div>
+	<div>{{ instance.timestamp|timesince }}</div>
+	<div>{{ instance.updated }}</div>
+	<p>작성자: {{ instance.user }}</p>
+
+
+	
+
+	<div>
+		<p class = 'lead'>Comments</p>
+		<form method="POST" action="."> {% csrf_token %}
+			{{ comment_form|crispy }}
+			<input type='submit' value="comment">
+		</form>
+		{% for comment in comments %}
+		{{ comment.content_object }}
+			<div class=''>
+
+				{{ comment.content }}
+			</div>
+			 via {{ comment.user }} on {{ comment.timestamp|timesince }}
+			<hr/>
+		{% endfor %}
+	</div>
+
+
+{% endblock content %}
+

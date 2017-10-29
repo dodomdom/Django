@@ -1,0 +1,26 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% block head_title %}DoDomDom{% endblock head_title %}</title>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css">
+
+	<style>
+		{% block style %} {% endblock style %}
+	</style>
+</head>
+<body>
+	{% include "html/messages_display.html" %}
+	<div class='container'>
+		{% block content %}
+			
+		{% endblock content %}
+	</div>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="static/js/login.js"></script>
+	
+	
+</body>
+</html>

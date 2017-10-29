@@ -1,0 +1,41 @@
+{% extends "html/base.html" %}
+{% load crispy_forms_tags %}
+{% block head_title %} {{ block.super }}{% endblock head_title %}
+
+{% block content %}
+
+<form method='GET' action=''>
+<input type='text' name='q' placeholder='Search posts' value='{{ request.GET.q }}'/>
+<input type='submit' value='Search' />
+</form>
+
+	{% for obj in object_list %}
+		<div><a href='{{ obj.get_absolute_url }}'>{{ obj.title|truncatechars:20 }}</a></div>
+        {% if instance.image %}
+            <img src='{{ obj.image.url }}' class='img-responsive'/>
+        {% endif %}
+		<div>{{ obj.id }}</div>
+		<div>{{ obj.timestamp }}</div>
+		<div>{{ obj.updated }}</div>
+	{% endfor %}
+
+
+<div class="pagination">
+    <span class="step-links">
+        {% if object_list.has_previous %}
+            <a href="?{{ page_request_var }}={{ object_list.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
+        </span>
+
+        {% if object_list.has_next %}
+            <a href="?{{ page_request_var }}={{ object_list.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">next</a>
+        {% endif %}
+    </span>
+</div>
+
+
+{% endblock content %}		
+
